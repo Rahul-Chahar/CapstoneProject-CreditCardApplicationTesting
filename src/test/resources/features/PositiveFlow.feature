@@ -12,7 +12,17 @@ Feature: Positive flows for Credit Card Application and user journeys
     When the user logs in with valid credentials
     Then login should succeed
 
-  Scenario: Successful credit card payment at checkout
-    Given a product is in the cart
-    When the user proceeds to checkout and applies a valid credit card
-    Then payment should be processed and order confirmed
+  Scenario: Add book to cart (logged in user)
+  Given I navigate to the nopcommerce page
+  Then I see the nopcommerce home page
+  When I click login option in the home page
+  Then I should navigate to the login page
+  When I enter valid username and password
+  And I click login button
+  Then I should navigate to the product page
+  When I click Books under home page menu
+  And I open "First Prize Pies" product page
+  When I click add to cart on product page
+  Then I should see the message as "The product has been added to your shopping cart"
+  When I click Shopping cart option
+  Then I see the message as "Shopping cart" page title

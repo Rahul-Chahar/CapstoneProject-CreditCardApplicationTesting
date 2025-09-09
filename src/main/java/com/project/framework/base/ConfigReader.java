@@ -4,17 +4,21 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-    private static Properties prop = new Properties();
+    private static Properties props;
 
-    static {
-        try (InputStream is = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties")) {
-            prop.load(is);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load config.properties", e);
+    public static Properties loadProperties() {
+        if (props == null) {
+            props = new Properties();
+            try (InputStream is = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties")) {
+                props.load(is);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return props;
     }
 
     public static String get(String key) {
-        return prop.getProperty(key);
+        return loadProperties().getProperty(key);
     }
 }
